@@ -45,7 +45,7 @@ def YoloClassIDReorder(folder_path, before_txt_path, after_txt_path):
 
     # 클래스 번호 리스트
     class_numbers = class_order_match(before_txt_path, after_txt_path)
-    
+    #print(class_numbers)
     # 폴더 내 txt 파일 하나씩 반복
     for file in txt_files:
 
@@ -62,14 +62,16 @@ def YoloClassIDReorder(folder_path, before_txt_path, after_txt_path):
                 #print("원본:",class_number)
 
                 # 리스트에서 class 번호와 일치하는 인덱스 찾기
-                index = class_numbers.index(class_number)
+                index = class_numbers[class_number]
 
                 # 수정된 class 번호(인덱스) 리스트에 추가
                 numbers[0] = index
+                #print("수정될 번호:",numbers[0])
 
                 # 수정된 내용 문자열로 변환
                 new_line = " ".join(map(str, numbers))
                 new_lines.append(new_line)
+                #print("결과: ",new_line)
 
             #print("수정결과:",new_lines)
             # 파일 내용 수정
@@ -78,6 +80,8 @@ def YoloClassIDReorder(folder_path, before_txt_path, after_txt_path):
                     #print(new_line)
                     txtF.write(new_line+"\n")
 
+    print("done")
+
 
 
 # 옵션 정의
@@ -85,29 +89,23 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--txt_data", type=str, required=True, help="폴더 경로")
 parser.add_argument("--before_txt_path", type=str, required=True, help="변경 전 주석 파일")
 parser.add_argument("--after_txt_path", type=str, default="reordered.txt", help="변경 후 주석 파일")
-parser.add_argument("--class_mapping", type=str, nargs="*", default=[], help="클래스 ID 매핑")
 
 # 옵션 분석
 args = parser.parse_args()
 
 # 폴더 경로 유효성 검사
 if not os.path.isdir(args.txt_data):
-    print("폴더 경로가 유효하지 않습니다.")
+    print("txt_data path err.")
     exit()
 
 # 주석 파일 유효성 검사
 if not os.path.isfile(args.before_txt_path):
-    print("변경 전 주석 파일 경로가 유효하지 않습니다.")
+    print("before_txt_path err")
     exit()
 if not os.path.isfile(args.after_txt_path):
-    print("변경 전 주석 파일 경로가 유효하지 않습니다.")
+    print("after_txt_path err")
     exit()
 
 
 YoloClassIDReorder(args.txt_data, args.before_txt_path, args.after_txt_path)
 
-# 폴더 경로
-folder_path = "D:\ALARAD_2024_images\YOLO_ClassEditing"
-# path
-before_txt_path = "./YOLO_ClassEditing/labelme_classes.txt"
-after_txt_path = "./YOLO_ClassEditing/yolo_classes.txt"
