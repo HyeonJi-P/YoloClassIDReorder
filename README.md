@@ -28,7 +28,7 @@ python YoloClassIDReorder.py --txt_data <path to YOLO txt dataset> --before_txt_
 ```
 
 Specify the following arguments:
---txt_data: Path to the YOLO annotation file directory.
---before_txt_path: Path to the class order information in current annotation(.txt). (similar to "classes.txt" in the YOLO type annotation)
---after_txt_path: Path to the desired class order information (.txt). (similar to "classes.txt" in the YOLO type annotation)
+> --txt_data: Path to the YOLO annotation file directory.
+> --before_txt_path: Path to the class order information in current annotation(.txt). (similar to "classes.txt" in the YOLO type annotation)
+> --after_txt_path: Path to the desired class order information (.txt). (similar to "classes.txt" in the YOLO type annotation)
 
